@@ -13,7 +13,7 @@
         @touchstart.self="handleBackgroundClick"
       >
         <div class="v--modal-top-right">
-          <slot name="top-right"/>
+          <slot name="top-right" />
         </div>
         <transition
           :name="transition"
@@ -29,7 +29,7 @@
             role="dialog"
             aria-modal="true"
           >
-            <slot/>
+            <slot />
             <resizer
               v-if="resizable && !isAutoHeight"
               :min-width="minWidth"
@@ -228,7 +228,7 @@ export default {
       const MutationObserver = getMutationObserver()
 
       if (MutationObserver) {
-        this.mutationObserver = new MutationObserver(mutations => {
+        this.mutationObserver = new MutationObserver((mutations) => {
           this.updateRenderedHeight()
         })
       } else {
@@ -571,13 +571,13 @@ export default {
         let cachedShiftX = 0
         let cachedShiftY = 0
 
-        const getPosition = event => {
+        const getPosition = (event) => {
           return event.touches && event.touches.length > 0
             ? event.touches[0]
             : event
         }
 
-        const handleDraggableMousedown = event => {
+        const handleDraggableMousedown = (event) => {
           let target = event.target
 
           if (
@@ -591,11 +591,9 @@ export default {
 
           let { clientX, clientY } = getPosition(event)
 
-          
-          document.addEventListener('touchmove', handleDraggableMousemove)
+          document.addEventListener('touchmove', handleDraggableMousemove, {passive: false})
 
-         
-          document.addEventListener('touchend', handleDraggableMouseup)
+          document.addEventListener('touchend', handleDraggableMouseup, {passive: false})
 
           startX = clientX
           startY = clientY
@@ -604,7 +602,7 @@ export default {
           cachedShiftY = this.shift.top
         }
 
-        const handleDraggableMousemove = event => {
+        const handleDraggableMousemove = (event) => {
           let { clientX, clientY } = getPosition(event)
 
           this.shift.left = cachedShiftX + clientX - startX
@@ -613,20 +611,23 @@ export default {
           event.preventDefault()
         }
 
-        const handleDraggableMouseup = event => {
+        const handleDraggableMouseup = (event) => {
           this.ensureShiftInWindowBounds()
 
-         
-          document.removeEventListener('touchmove', handleDraggableMousemove)
+          document.removeEventListener('touchmove', handleDraggableMousemove, {
+            passive: false
+          })
 
-         
-          document.removeEventListener('touchend', handleDraggableMouseup)
+          document.removeEventListener('touchend', handleDraggableMouseup, {
+            passive: false
+          })
 
           event.preventDefault()
         }
 
-        
-        dragger.addEventListener('touchstart', handleDraggableMousedown)
+        dragger.addEventListener('touchstart', handleDraggableMousedown, {
+          passive: false
+        })
       }
     },
 
