@@ -591,10 +591,10 @@ export default {
 
           let { clientX, clientY } = getPosition(event)
 
-          document.addEventListener('mousemove', handleDraggableMousemove)
+          
           document.addEventListener('touchmove', handleDraggableMousemove)
 
-          document.addEventListener('mouseup', handleDraggableMouseup)
+         
           document.addEventListener('touchend', handleDraggableMouseup)
 
           startX = clientX
@@ -616,16 +616,16 @@ export default {
         const handleDraggableMouseup = event => {
           this.ensureShiftInWindowBounds()
 
-          document.removeEventListener('mousemove', handleDraggableMousemove)
+         
           document.removeEventListener('touchmove', handleDraggableMousemove)
 
-          document.removeEventListener('mouseup', handleDraggableMouseup)
+         
           document.removeEventListener('touchend', handleDraggableMouseup)
 
           event.preventDefault()
         }
 
-        dragger.addEventListener('mousedown', handleDraggableMousedown)
+        
         dragger.addEventListener('touchstart', handleDraggableMousedown)
       }
     },
